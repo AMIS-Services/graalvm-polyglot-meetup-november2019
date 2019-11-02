@@ -83,5 +83,7 @@ echo 'export PATH=$PATH:/usr/lib/jvm/graalvm/bin' > /etc/profile.d/addgraalvmtop
 #Git Clone the Workshop Sources
 cd /home/developer
 git clone https://github.com/AMIS-Services/graalvm-polyglot-meetup-november2019 
+sudo chmod -R ugo+rw graalvm-polyglot-meetup-november2019
+
 
 shutdown now -h
