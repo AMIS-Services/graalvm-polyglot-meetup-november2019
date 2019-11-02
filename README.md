@@ -15,7 +15,6 @@ You may want to adjust the IP address for the VM or its memory size or other cha
 1. open a command line in the *provision* directory
 2. type `vagrant up`
 3. You will have to wait for many things to happen now:
-(07:03)
 * downloading the Ubuntu image
 * creating the VM through VirtualBox API
 * provisioning the Ubuntu environment inside the VM with:
@@ -51,4 +50,4 @@ Open a terminal window through the Terminator tool. Some commands you may want t
 
 Directory /home/developer/graalvm-polyglot-meetup-november2019 contains the Workshop materials - cloned from GitHub Repository https://github.com/AMIS-Services/graalvm-polyglot-meetup-november2019 
 
-Note: you may get annoyed a little with Ubuntu locking the screen quite aggressively. Since the host OS probably already runs screensaver and screen lock, you could switch off the screen lock in the Ubuntu Guest. Use `Settings | Privacy | Screen Lock | Automatic Screen Lock Off`. 
+Note: you may get annoyed a little with Ubuntu locking the screen quite aggressively. Since the host OS probably already runs screensaver and screen lock, you could switch off the screen lock in the Ubuntu Guest. Use `Settings | Privacy | Screen Lock | Automatic Screen Lock Off`. (see: https://technology.amis.nl/2019/11/02/switch-off-screen-lock-on-ubuntu-bionic-desktop/)

@@ -33,9 +33,3 @@ public class CacheAndCounter {
 	
 
 }
-ect get(String key) {
-		return theMap.get(key);
-	}
-	
-
-}

@@ -34,23 +34,6 @@ sed -i 's/vagrant/developer/g' /etc/sudoers.d/developer
 #Install Eclipse
 snap install --classic eclipse
 
-#Install Chrome Browser (for debugging with GraalVM and Chrome DevTools)
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-# use -f to fix broken dependencies
-sudo apt-get -y update && sudo apt-get install -f
-sudo dpkg -i google-chrome-stable_current_amd64.deb
-
-#Install Visual Studio Source (https://linuxize.com/post/how-to-install-visual-studio-code-on-ubuntu-18-04/)
-wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
-sudo apt update
-sudo apt install code
-
-#install VSS extension
-code --list-extensions
-code --install-extension oracle-labs-graalvm.graalvm
-
-
 #Install GraalVM. Based on https://gist.github.com/ricardozanini/fa65e485251913e1467837b1c5a8ed28
 wget https://github.com/oracle/graal/releases/download/vm-19.2.1/graalvm-ce-linux-amd64-19.2.1.tar.gz  -O /tmp/graalvm.tar.gz
 
@@ -64,6 +47,9 @@ update-alternatives --set java /usr/lib/jvm/graalvm/bin/java
 update-alternatives --set javac /usr/lib/jvm/graalvm/bin/javac
 update-alternatives --set native-image /usr/lib/jvm/graalvm/bin/native-image
 rm -f /tmp/graalvm.tar.gz
+
+
+sudo chmod -R ugo+xrw /usr/lib/jvm/graalvm-ce-19.2.1/jre/languages/js
 
 #Install native image tool
 /usr/lib/jvm/graalvm-ce-19.2.1/bin/gu install native-image
@@ -80,10 +66,27 @@ echo 'export GRAALVM_HOME=/usr/lib/jvm/graalvm' > /etc/profile.d/setGRAALVM_HOME
 echo 'export JAVA_HOME=/usr/lib/jvm/graalvm' > /etc/profile.d/setJAVA_HOME.sh
 echo 'export PATH=$PATH:/usr/lib/jvm/graalvm/bin' > /etc/profile.d/addgraalvmtopath.sh
 
+#Install Visual Studio Source (https://linuxize.com/post/how-to-install-visual-studio-code-on-ubuntu-18-04/)
+wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+sudo apt update
+sudo apt install code
+
+#Install Chrome Browser (for debugging with GraalVM and Chrome DevTools)
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+# use -f to fix broken dependencies
+sudo apt-get -y update && sudo apt-get install -f
+sudo dpkg -i google-chrome-stable_current_amd64.deb
+sudo apt -y --fix-broken install
+
+
+
 #Git Clone the Workshop Sources
 cd /home/developer
 git clone https://github.com/AMIS-Services/graalvm-polyglot-meetup-november2019 
 sudo chmod -R ugo+rw graalvm-polyglot-meetup-november2019
 
+# install webpack and webpack-cli in order to turn NPM module into self contained bundle
+ln -s /usr/lib/jvm/graalvm-ce-19.2.1/jre/languages/js/npm/bin/npm /home/developer/graalvm-polyglot-meetup-november2019/java2js/npm
 
 shutdown now -h
