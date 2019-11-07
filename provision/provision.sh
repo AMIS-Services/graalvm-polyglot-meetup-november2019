@@ -86,7 +86,8 @@ cd /home/developer
 git clone https://github.com/AMIS-Services/graalvm-polyglot-meetup-november2019 
 sudo chmod -R ugo+rw graalvm-polyglot-meetup-november2019
 
-# install webpack and webpack-cli in order to turn NPM module into self contained bundle
-ln -s /usr/lib/jvm/graalvm-ce-19.2.1/jre/languages/js/npm/bin/npm /home/developer/graalvm-polyglot-meetup-november2019/java2js/npm
+#Install Preview VS Code Extensions for GraalVM
+wget https://github.com/oracle/graal/releases/download/vm-19.2.1/vs-code-extensions-tech-preview-19.2.1.zip
+unzip vs-code-extensions-tech-preview-19.2.1.zip
 
 shutdown now -h
