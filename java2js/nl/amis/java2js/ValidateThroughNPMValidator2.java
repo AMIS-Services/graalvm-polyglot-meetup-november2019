@@ -1,7 +1,6 @@
 package nl.amis.java2js;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,41 +11,48 @@ import org.graalvm.polyglot.*;
 public class ValidateThroughNPMValidator2 {
 
 	private Context c;
-	// store JavaScript resource read from file (for example from JAR)
-	private static String jsResource;
-	static {
-        System.out.println("Inside Static Initializer.");
+
+	public ValidateThroughNPMValidator2() {
 		try {
 			// load file validatorbundled.js from root of Java package structure aka root of
 			// JAR archive file
-			InputStream is = ValidateThroughNPMValidator2.class.getResourceAsStream("/validatorbundled.js");
-			
-			ByteArrayOutputStream result = new ByteArrayOutputStream();
-			byte[] buffer = new byte[1024];
-			int length;
-			while ((length = is.read(buffer)) != -1) {
-			    result.write(buffer, 0, length);
-			}
-			// StandardCharsets.UTF_8.name() > JDK 7
-			jsResource = result.toString("UTF-8");
-			
+			InputStream is = getClass().getResourceAsStream("/validatorbundled.js");
+			readAndEvaluateJavaScriptSource(is);
 			is.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-        System.out.println("End Static Initializer.\n");
-    }
+	}
 
-	public ValidateThroughNPMValidator2() {
+	public ValidateThroughNPMValidator2(String validatorBundleSourceFile) {
+		try {
+			// load file validatorbundled.js from root of Java package structure aka root of
+			// JAR archive file
+			System.out.println("Loading Validator Module from " + validatorBundleSourceFile);
+			InputStream is = new FileInputStream(validatorBundleSourceFile);
+			readAndEvaluateJavaScriptSource(is);
+			is.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void readAndEvaluateJavaScriptSource(InputStream is) throws IOException {
+		InputStreamReader isr = new InputStreamReader(is);
+		BufferedReader JSreader = new BufferedReader(isr);
+
 		// create Polyglot Context for JavaScript and load NPM module validator (bundled
 		// as self contained resource)
 		c = Context.create("js");
-		c.eval("js",jsResource);
-		System.out.println("All JavaScript functions now available from Java (as loaded into Bindings) "
+		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+		// load output from WebPack for Validator Module - a single bundled JS file
+		c.eval(Source.newBuilder("js", JSreader, "validatorbundled").build());
+		System.out.println("All functions available from Java (as loaded into Bindings) "
 				+ c.getBindings("js").getMemberKeys());
+		JSreader.close();
+		isr.close();
 	}
-
-
+	
 	public Boolean isPostalCode(String postalCodeToValidate, String country) {
 		// use validation function isPostalCode(str, locale) from NPM Validator Module
 		// to validate postal code
@@ -55,11 +61,13 @@ public class ValidateThroughNPMValidator2 {
 		return postalCodeValidationResult;
 	}
 
+	// pass 
 	public static void main(String[] args) {
 		for(int i = 0; i < args.length; i++) {
             System.out.println("Args "+i+": "+args[i]);
         }
-		ValidateThroughNPMValidator2 v = new ValidateThroughNPMValidator2();
+		// if the filename was passed as startup argument, then load the validator bundle according to that specification
+		ValidateThroughNPMValidator2 v = args.length>0?new ValidateThroughNPMValidator2(args[0]):new ValidateThroughNPMValidator2();
 		System.out.println("Postal Code Validation Result " + v.isPostalCode("3214 TT", "NL"));
 		System.out.println("Postal Code Validation Result " + v.isPostalCode("XX 27165", "NL"));
 	}
