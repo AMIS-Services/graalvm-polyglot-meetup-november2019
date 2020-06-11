@@ -9,7 +9,7 @@ const javaValidatorClass = Java.type('nl.amis.java2js.ValidateThroughNPMValidato
 const javaValidator = new javaValidatorClass();
 
 var postalCode = "1253 EX"
-print(`Postal Code ${postalCode} is a ${javaValidator.isPostalCode(postalCode,'NL')} value`)
+console.log(`Postal Code ${postalCode} is a ${javaValidator.isPostalCode(postalCode,'NL')} value`)
 
 var postalCode = "AS 1252"
-print(`Postal Code ${postalCode} is a ${javaValidator.isPostalCode(postalCode,'NL')} value`)
+console.log(`Postal Code ${postalCode} is a ${javaValidator.isPostalCode(postalCode,'NL')} value`)

@@ -8,7 +8,7 @@ const javaJokerClass = Java.type('nl.amis.js2java.Joker');
 const javaJoker1 = new javaJokerClass()
 
 function crackJoke() {
-   print(getJoke())
+   console.log(getJoke())
 }
 
 function getJoke() {

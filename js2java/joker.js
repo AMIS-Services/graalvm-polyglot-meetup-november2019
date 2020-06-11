@@ -2,7 +2,7 @@
 // node joker.js
 
 function crackJoke() {
-   print(getJoke())
+   console.log(getJoke())
 }
 
 function getJoke() {

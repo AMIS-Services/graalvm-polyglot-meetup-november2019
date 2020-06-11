@@ -14,7 +14,7 @@ const javaJoker1 = new javaJokerClass();
 var JArray = Java.type('java.lang.reflect.Array');
 var JString = Java.type('java.lang.String');
 // create a Java String Array
-print("* Create, populate and use a Java String[] in JavaScript code")
+console.log("* Create, populate and use a Java String[] in JavaScript code")
 
 var jokeArray = JArray.newInstance(JString, howManyJokesCanWeTake);
 for (var joke=0;joke<5;joke++){
@@ -22,24 +22,24 @@ for (var joke=0;joke<5;joke++){
 }
 
 for (let joke of jokeArray) {
-  print(joke)
+  console.log(joke)
 }  
 
 // get String[] returned from Java
-print("* Receive a Java String[] as return object from Java to JavaScript")
+console.log("* Receive a Java String[] as return object from Java to JavaScript")
 jokeArray =  javaJoker1.getJokes(howManyJokesCanWeTake)
 for (let joke of jokeArray) {
-  print(joke)
+  console.log(joke)
 }  
 
 
 // get Map with String[] returned from Java
-print("* Use a Map as transfer object to shuttle between JavaScript and Java")
+console.log("* Use a Map as transfer object to shuttle between JavaScript and Java")
 var HashMap = Java.type('java.util.HashMap');
 var transferObject = new HashMap();
 transferObject.put("desiredNumberOfJokes", howManyJokesCanWeTake);
 javaJoker1.transferJokes(transferObject)
 jokeArray = transferObject.get("jokes")
 for (let joke of jokeArray) {
-  print(joke)
+  console.log(joke)
 }  
