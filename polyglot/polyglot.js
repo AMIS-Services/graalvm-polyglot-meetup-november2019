@@ -35,7 +35,7 @@ Polyglot.export("PythonSquare", square)
 fnc = Polyglot.eval("R", `function(input) {
     squared <- import('PythonSquare')
     result <- squared(input)
-    console.log( paste('Calculated Square in R using Python Function retrieved from Polyglot through JS : ', result))
+    print( paste('Calculated Square in R using Python Function retrieved from Polyglot through JS : ', result))
     result
 }`)
 console.log(`Square of 9 = ${fnc(9)}`)
