@@ -14,7 +14,7 @@ console.log ("Title retrieved from Python: "+ title)
 // Store value in Polyglot Map - read and update it in Python then read it again in JS
 Polyglot.export("name","Wim")
 console.log("Name from Polyglot Map: "+ Polyglot.import("name"))
-Polyglot.eval("python", `console.log("Name from Polyglot is ", polyglot.import_value("name"))`)
+Polyglot.eval("python", `print("Name from Polyglot is ", polyglot.import_value("name"))`)
 Polyglot.eval("python", `polyglot.export_value("Hans" , "name")`)
 console.log("Name from Polyglot Map "+ Polyglot.import("name"))
 
