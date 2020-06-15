@@ -17,6 +17,12 @@ public class LoadAndRunJS {
 			Value sqrtFunction = c.getBindings("js").getMember("squareRoot");
 			Double sqrtResult = sqrtFunction.execute(42).asDouble();
 			System.out.println("Calculation Result for Square Root (42) " + sqrtResult);
+			Value doubleIt = c.getBindings("js").getMember("doubleIt");
+			if (doubleIt!=null) {
+				Double doubleResult = doubleIt.execute(42).asDouble();
+				System.out.println("Calculation Result for Double It (42) " + doubleResult);
+			} 
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
