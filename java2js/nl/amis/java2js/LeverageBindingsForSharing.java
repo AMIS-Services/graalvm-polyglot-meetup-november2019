@@ -33,7 +33,7 @@ public class LeverageBindingsForSharing {
 			backingMap.put("myQuestion", "2*3");
 			c.getBindings("js").putMember("hostObject", ProxyObject.fromMap(backingMap));
 			// access the Java Map turned JavaScript object in bindings from JavaScript:
-			Integer answer = c.eval("js", "print(`your key = ${hostObject.myKey}`);"
+			Integer answer = c.eval("js", "console.log(`your key = ${hostObject.myKey}`);"
 					+ "hostObject.yourAnswer = eval(hostObject.myQuestion) ; eval(hostObject.yourAnswer)")
 					.asInt();
 			// the answer is available from the evaluation of the JS snippet

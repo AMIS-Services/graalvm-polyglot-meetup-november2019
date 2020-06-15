@@ -5,7 +5,7 @@ import org.graalvm.polyglot.*;
 public class HelloWorld {
 	public static void main(String[] args) {
 		Context polyglot = Context.create();
-        polyglot.eval("js", "print('Hello JavaScript!')");
+        polyglot.eval("js", "console.log('Hello JavaScript!')");
         
         Value helloWorldFunction= polyglot.eval("js"
         		               , "(function(name) { return `Hello ${name}, welcome to the world of JavaScript` })");
@@ -15,7 +15,7 @@ public class HelloWorld {
 		
 		// Handle Exception Thrown in JavaScript
 		try {
-		polyglot.eval("js", "print('Hello JavaScript!'); throw 'I do not feel like executing this';");
+		polyglot.eval("js", "console.log('Hello JavaScript!'); throw 'I do not feel like executing this';");
 		} catch (PolyglotException e) {
             System.out.println("Exception caught from JavaScript Execution. Orginal Exception: "+e.getMessage());
         }       
